@@ -1,0 +1,136 @@
+@()
+
+@main("Millesime") {
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy" rel="stylesheet">
+
+    </head>
+      
+    <style>
+        .btn {
+            background-color: #900C3F;
+        }
+        .btn:hover {
+            background-color: #161414;
+        }
+    </style>
+    <body>
+        <div id="app">
+            <div class="container">
+                <div class="box box-1">
+                    <img style="max-width: 80%; margin-top: 120px;" src='@routes.Assets.versioned("images/wine_image.png")' />
+                </div>
+                <div class="box box-2">
+                    <h2 style="font-family: 'Poltawski Nowy', serif; margin-top: 14px; margin-bottom: 8px;">Millésime</h2>
+                    <form id="wineFeatures" method="post" action="processform">
+                    <div class="row">
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="fixed_acidity" type="number" step="0.01" name="fixed_acidity"></input>
+                        <label for="fixed_acidity">Fixed Acidity</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="volatile_acidity" type="number" step="0.01" name="volatile_acidity"></input>
+                        <label for="volatile_acidity">Volatile Acidity</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="citric_acid" type="number" step="0.01" name="citric_acid"></input>
+                        <label for="citric_acid">Citric Acid</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="residual_sugar" type="number" step="0.01" name="residual_sugar"></input>
+                        <label for="residual_sugar">Residual Sugar</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="chlorides" type="number" step="0.01" name="chlorides"></input>
+                        <label for="chlorides">Chlorides</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="density" type="number" step="0.01" name="density"></input>
+                        <label for="density">Density</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="ph" type="number" step="0.01" name="ph"></input>
+                        <label for="ph">pH</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="sulphates" type="number" step="0.01" name="sulphates"></input>
+                        <label for="sulphates">Sulphates</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="free_sulfur_dioxide" type="number" step="0.01" name="free_sulfur_dioxide"></input>
+                        <label for="free_sulfur_dioxide">Free Sulfur Dioxide</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="alcohol" type="number" step="0.01" name="alcohol"></input>
+                        <label for="alcohol">Alcohol</label>
+                    </div>
+                    </div>
+                    <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="total_sulfur_dioxide" type="number" step="0.01" name="total_sulfur_dioxide"></input>
+                        <label for="total_sulfur_dioxide">Total Sulfur Dioxide</label>
+                    </div>
+                    </div>
+                    <div class="col s6" style="margin-top: 22px; padding-left: 22px;">
+                        <button class="btn waves-effect waves-light" type="submit">Submit</button>
+                    </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const form = document.querySelector('#wineFeatures');
+    
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const fields = ["fixed_acidity", 
+                            "volatile_acidity", 
+                            "citric_acid", 
+                            "residual_sugar", 
+                            "chlorides",
+                            'density',
+                            'ph',
+                            'sulphates',
+                            "free_sulfur_dioxide",
+                            'alcohol',
+                            'total_sulfur_dioxide'];
+            const emptyFields = fields.filter(field => {
+                const input = document.querySelector(`#${field}`);
+                console.log(input);
+                return !input.value;
+            });
+            if (emptyFields.length > 0) {
+                event.preventDefault();
+                alert('All fields are required');
+                return;
+            }
+            form.submit();
+        });
+    </script>
+    
+}

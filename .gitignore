@@ -1,0 +1,13 @@
+logs
+target
+/.bsp
+/.g8
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+app/services/python/__pycache__
+app/services/python/regressor.pkl
+**/.DS_Store

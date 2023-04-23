@@ -1,0 +1,59 @@
+body {
+    background-color: #fbf4ec;
+}
+.col.s6 > .btn {
+    width: 100%;
+}
+label {
+    color: #8C6752 !important;
+}
+h2 {
+    color: #41131D;
+    padding-left: 22px;
+}
+h1 {
+    font-family: 'Poltawski Nowy', serif;
+}
+.row .input-field input {
+    border-bottom: 1px solid #8C6752 !important;
+}
+
+.input-field input:focus + label {
+    color: #964D37 !important;
+}
+/* label underline focus color */
+.row .input-field input:focus {
+    border-bottom: 1px solid #964D37 !important;
+    box-shadow: 0 1px 0 0 #964D37 !important
+}
+.input-field label{
+    pointer-events: all !important;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.box {
+    height: 100%;
+}
+.box-1 {
+    flex: 1;
+}
+
+.box-2 {
+    flex: 1;
+}
+
+.wrapper-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.result-text {
+    text-align: center;
+}

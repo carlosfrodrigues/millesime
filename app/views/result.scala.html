@@ -1,0 +1,20 @@
+@(result: String)
+@main("Millesime") {
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper-result">
+        <div class="result-text">
+            <h1>Your Wine Score is:</h1>
+            <h1>@result</h1>
+            <a href="/">Go back to Home Page</a>
+        </div>
+    </div>
+  </body>
+</html>
+}
