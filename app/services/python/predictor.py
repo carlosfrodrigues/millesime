@@ -9,13 +9,15 @@ def run(parameters):
             'citric acid',
             'residual sugar',
             'chlorides',
+	    'free sulfur dioxide',
+            'total sulfur dioxide',
             'density',
             'pH',
             'sulphates',
-            'free sulfur dioxide',
-            'alcohol',
-            'total sulfur dioxide']
+            'alcohol']
+    reorder = [0, 1, 2, 3, 4, 8, 10, 5, 6, 7, 9]
+    parameters = [parameters[i] for i in reorder]
     values = dict(zip(keys, parameters))
     df = pd.DataFrame(values, index=[0])
     prediction = clf.predict(df)
-    return prediction[0]
+    return float(prediction[0])
