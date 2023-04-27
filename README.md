@@ -8,8 +8,9 @@ To get started with the app, follow these steps:
 
 1. Clone the repository to your local machine
 2. Go to `app/services/python` and install the necessary dependencies by running `pip install -r requirements.txt`
-3. Make sure you have Scala Build Tools installed on your machine and run the app by executing the command `sbt run`
-4. Visit `http://localhost:9000` in your web browser to use the app
+3. Still at the `app/services/python` folder, run `generate_model.py`. It will generate the regressor.pkl
+4. Make sure you have Scala Build Tools installed on your machine and run the app by executing the command `sbt run` on the root folder.
+5. Visit `http://localhost:9000` in your web browser to use the app
 
 ## How to Use
 
