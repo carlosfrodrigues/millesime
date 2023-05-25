@@ -1,15 +1,6 @@
 @()
 
-@main("Millesime") {
-    <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy" rel="stylesheet">
-
-    </head>
-      
+@main("Millesime") {      
     <style>
         .btn {
             background-color: #900C3F;
@@ -103,34 +94,9 @@
             </div>
         </div>
     </body>
+    <script src="@routes.Assets.versioned("javascripts/main.js")"></script>
     <script>
         const form = document.querySelector('#wineFeatures');
-    
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const fields = ["fixed_acidity", 
-                            "volatile_acidity", 
-                            "citric_acid", 
-                            "residual_sugar", 
-                            "chlorides",
-                            'density',
-                            'ph',
-                            'sulphates',
-                            "free_sulfur_dioxide",
-                            'alcohol',
-                            'total_sulfur_dioxide'];
-            const emptyFields = fields.filter(field => {
-                const input = document.querySelector(`#${field}`);
-                console.log(input);
-                return !input.value;
-            });
-            if (emptyFields.length > 0) {
-                event.preventDefault();
-                alert('All fields are required');
-                return;
-            }
-            form.submit();
-        });
+        form.addEventListener('submit', (event) => { eventListener(event) })
     </script>
-    
 }
