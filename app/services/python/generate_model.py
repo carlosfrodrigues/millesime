@@ -26,7 +26,6 @@ if len(sys.argv) > 1:
                              BaggingRegressor(estimator=DecisionTreeRegressor(), n_estimators=100))
         parameters = {'baggingregressor__max_samples': [0.25, 0.5, 1.0],
                         'baggingregressor__max_features': [0.25, 0.5, 1.0]}
-
 else:
     pipeline = make_pipeline(preprocessing.StandardScaler(),
                             RandomForestRegressor(n_estimators=100,
