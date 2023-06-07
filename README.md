@@ -18,7 +18,7 @@ Once you have the app running, you can enter the physicochemical parameters of t
 
 ## Machine Learning Model
 
-The machine learning model used by this app is a Random Forest Regression model, trained on a dataset of physicochemical measurements and corresponding wine quality ratings. The model has been trained to predict the quality of a wine on a scale of 0 to 10, based on 11 physicochemical parameters.
+The machine learning model used by this app is a Stacking Regressor model, which combines the predictions of Random Forest, Extra Trees, and Bagging regressors. The final output is obtained through a Gradient Boosting Regressor. The model has been trained on a dataset of physicochemical measurements and corresponding wine quality ratings. It aims to predict the quality of a wine on a scale of 0 to 10, based on 11 physicochemical parameters.
 
 ## Dataset
 
