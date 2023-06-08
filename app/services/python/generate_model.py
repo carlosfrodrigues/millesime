@@ -11,8 +11,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeRegressor, ExtraTreeRegressor
 
  
-dataset_url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv'
-data = pd.read_csv(dataset_url, sep=';')
+dataset= open('winequality-red.csv')
+data = pd.read_csv(dataset, sep=';')
 
 y = data.quality
 X = data.drop('quality', axis='columns')
@@ -24,55 +24,72 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
 if len(sys.argv) > 1:
     if sys.argv[1] == 'adaboost_extra': #R2 Score: 0.4721230098674255  MSE: 0.340625
         pipeline = make_pipeline(preprocessing.StandardScaler(),
-                            AdaBoostRegressor(estimator=ExtraTreeRegressor(),
-                                            n_estimators=100, random_state=123))
+                            AdaBoostRegressor(estimator=ExtraTreeRegressor(), random_state=123))
         parameters = {'adaboostregressor__learning_rate': [0.01, 0.1, 0.5, 1.0],
-                          'adaboostregressor__loss': ['linear', 'square', 'exponential']}
+                      'adaboostregressor__loss': ['linear', 'square', 'exponential'],
+                      'adaboostregressor__n_estimators': [50, 100, 200]}
     elif sys.argv[1] == 'adaboost': #R2 Score: 0.29882900753251374  MSE: 0.45244701658478154
             pipeline = make_pipeline(preprocessing.StandardScaler(),
-                                    AdaBoostRegressor(n_estimators=100, random_state=123))
+                                    AdaBoostRegressor(random_state=123))
             parameters = {'adaboostregressor__learning_rate': [0.01, 0.1, 0.5, 1.0],
-                          'adaboostregressor__loss': ['linear', 'square', 'exponential']}
-    elif sys.argv[1] == 'bagging_extra': #R2 Score: 0.47092293722380296  MSE: 0.34139937500000006
+                          'adaboostregressor__loss': ['linear', 'square', 'exponential'],
+                          'adaboostregressor__n_estimators': [50, 100, 200]}
+    elif sys.argv[1] == 'bagging_extra': #R2 Score: 0.4776303650342032  MSE: 0.33707125
         pipeline = make_pipeline(preprocessing.StandardScaler(),
-                            BaggingRegressor(estimator=ExtraTreeRegressor(),
-                                            n_estimators=100, random_state=123))
-        parameters = {'baggingregressor__max_samples': [0.25, 0.5, 1.0],
-                          'baggingregressor__max_features': [0.25, 0.5, 1.0]}
-    elif sys.argv[1] == 'bagging': #R2 Score: 0.4599440644106787  MSE: 0.34848375000000004
+                            BaggingRegressor(estimator=ExtraTreeRegressor(), random_state=123))
+        parameters = {'baggingregressor__n_estimators': [50, 100, 200],
+                      'baggingregressor__max_samples': [0.25, 0.5, 1.0],
+                      'baggingregressor__max_features': [0.25, 0.5, 1.0],
+                      'baggingregressor__estimator__criterion': ['squared_error', 'absolute_error', 'friedman_mse', 'poisson'],
+                      'baggingregressor__estimator__max_depth': [None, 5, 3, 1],
+                      'baggingregressor__estimator__max_features': [0.25, 0.5, 1.0]}
+    elif sys.argv[1] == 'bagging': #R2 Score: 0.45518578606453175  MSE: 0.35155414062500007
             pipeline = make_pipeline(preprocessing.StandardScaler(),
-                                BaggingRegressor(n_estimators=100, random_state=123))
-            parameters = {'baggingregressor__max_samples': [0.25, 0.5, 1.0],
+                                BaggingRegressor(random_state=123))
+            parameters = {'baggingregressor__n_estimators': [50, 100, 200],
+                          'baggingregressor__max_samples': [0.25, 0.5, 1.0],
                           'baggingregressor__max_features': [0.25, 0.5, 1.0]}
-    elif sys.argv[1] == 'gradient': #R2 Score: 0.45680680020705233  MSE: 0.3505081432570197
+    elif sys.argv[1] == 'gradient': #R2 Score: 0.4724801749607893  MSE: 0.3403945308524501
         pipeline = make_pipeline(preprocessing.StandardScaler(),
                                 GradientBoostingRegressor(random_state=123))
         parameters = {'gradientboostingregressor__max_depth': [None, 5, 3, 1],
-                      'gradientboostingregressor__max_features': [0.25, 0.5, 1.0]}
-    elif sys.argv[1] == 'hist_gradient': #R2 Score: 0.417472293571335  MSE: 0.3758896555662156
+                      'gradientboostingregressor__loss': ['squared_error', 'absolute_error', 'huber', 'quantile'],
+                      'gradientboostingregressor__learning_rate': [0.01, 0.1, 0.5, 1.0],
+                      'gradientboostingregressor__n_estimators': [50, 100, 200],
+                      'gradientboostingregressor__max_features': [0.25, 0.5, 1.0],
+                      'gradientboostingregressor__criterion': ['squared_error', 'friedman_mse']}
+    elif sys.argv[1] == 'hist_gradient': #R2 Score: 0.39414447842185163  MSE: 0.3909424750370873
         pipeline = make_pipeline(preprocessing.StandardScaler(),
                                 HistGradientBoostingRegressor(random_state=123))
-        parameters = {'histgradientboostingregressor__max_depth': [None, 5, 3, 1]}
-    elif sys.argv[1] == 'random_forest': #R2 Score: 0.47120721593316794  MSE: 0.3412159375
+        parameters = {'histgradientboostingregressor__max_depth': [None, 5, 3, 1],
+                      'histgradientboostingregressor__loss': ['squared_error', 'absolute_error', 'poisson', 'quantile'],
+                      'histgradientboostingregressor__learning_rate': [0.01, 0.1, 0.5, 1.0]}
+    elif sys.argv[1] == 'random_forest': #R2 Score: 0.47407857618499927  MSE: 0.339363125
         pipeline = make_pipeline(preprocessing.StandardScaler(),
                                 RandomForestRegressor(random_state=123))
         parameters = {'randomforestregressor__max_depth': [None, 5, 3, 1],
+                      'randomforestregressor__n_estimators': [50, 100, 200],
+                      'randomforestregressor__criterion': ['squared_error', 'absolute_error', 'friedman_mse', 'poisson'],
                       'randomforestregressor__max_samples': [0.25, 0.5, 1.0],
                       'randomforestregressor__max_features': [0.25, 0.5, 1.0],}
-    elif sys.argv[1] == 'extra_trees': #R2 Score: 0.4854095284218174  MSE: 0.3320515625
+    elif sys.argv[1] == 'extra_trees': #R2 Score: 0.4898364307766815  MSE: 0.329195
         pipeline = make_pipeline(preprocessing.StandardScaler(),
                             ExtraTreesRegressor(random_state=123))
         parameters = {'extratreesregressor__max_depth': [None, 5, 3, 1],
+                      'extratreesregressor__n_estimators': [50, 100, 200],
+                      'extratreesregressor__criterion': ['squared_error', 'absolute_error', 'friedman_mse', 'poisson'],
                       'extratreesregressor__max_features': [0.25, 0.5, 1.0]}
     elif sys.argv[1] == 'ada_bagging_extra': #R2 Score: 0.4928458139112538  MSE: 0.32725312500000003
         pipeline = make_pipeline(preprocessing.StandardScaler(),
                         AdaBoostRegressor(estimator=BaggingRegressor(
-                                              max_features=0.75,
-                                              max_samples=1.0,
-                                              n_estimators=100,
-                                              estimator=ExtraTreeRegressor(
-                                                  criterion='poisson'))))
-        parameters = {'adaboostregressor__random_state': [123]}
+                                              estimator=ExtraTreeRegressor())))
+        parameters = {'adaboostregressor__learning_rate': [0.01, 0.1, 0.5, 1.0],
+                      'adaboostregressor__loss': ['linear', 'square', 'exponential'],
+                      'adaboostregressor__n_estimators': [50, 100, 200],
+                      'adaboostregressor__estimator__n_estimators': [50, 100, 200],
+                      'adaboostregressor__estimator__max_samples': [0.25, 0.5, 1.0],
+                      'adaboostregressor__estimator__max_features': [0.25, 0.5, 1.0],
+                      'adaboostregressor__estimator__estimator__criterion': ['squared_error', 'absolute_error', 'friedman_mse', 'poisson']}
 
     clf = GridSearchCV(pipeline, parameters, cv=10, n_jobs=-1)
 
@@ -113,11 +130,10 @@ else: #R2 Score: 0.5003836205530543  MSE: 0.32238917859703503
                                                       criterion='friedman_mse',
                                                       max_features=0.25)))
 
-    stack = pipeline._final_estimator
-    stack.fit(X_train, y_train)
+    pipeline._final_estimator.fit(X_train, y_train)
 
-    pred = stack.predict(X_test)
+    pred = pipeline._final_estimator.predict(X_test)
     scores = (float(r2_score(y_test, pred)), float(mean_squared_error(y_test, pred)))
     print(f"R2 Score: {scores[0]}  MSE: {scores[1]}")
 
-    joblib.dump(stack, 'regressor.pkl')
+    joblib.dump(pipeline._final_estimator, 'regressor.pkl')
