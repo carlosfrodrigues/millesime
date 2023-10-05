@@ -57,3 +57,8 @@ h1 {
 .result-text {
     text-align: center;
 }
+
+.larger{
+    display: block ;
+    width: 180px;
+}
